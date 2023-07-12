@@ -18,8 +18,8 @@ Table F_Applicant {
   address_country varchar(20)
   created_by varchar(20)
   modified_by varchar(20)
-  created_at datetime
-  modified_at datetime
+  created_at date
+  modified_at date
 }
 
 Table Applicant_Skills {
@@ -39,8 +39,8 @@ Table F_Application {
   status varchar(10)
   created_by varchar(20)
   modified_by varchar(20)
-  created_at datetime
-  modified_at datetime
+  created_at date
+  modified_at date
 }
 
 Table F_Document {
@@ -49,8 +49,8 @@ Table F_Document {
   content blob
   created_by varchar(20)
   modified_by varchar(20)
-  created_at datetime
-  modified_at datetime
+  created_at date
+  modified_at date
 }
 
 // Ref: F_Applicant.id <> F_Skills.id // many-to-many
