@@ -2,7 +2,7 @@
 // Docs: https://dbml.dbdiagram.io/docs
 
 Table F_Applicant {
-  id number(16,0) [pk, unique, increment]
+  id serial [pk, unique, increment]
   first_name varchar(20) [not null]
   middle_name varchar(20)
   last_name varchar(20) [not null]
@@ -23,18 +23,18 @@ Table F_Applicant {
 }
 
 Table Applicant_Skills {
-  applicant_id number(16,0) [ref: > F_Applicant.id]
-  skill_id number(16,0) [ref: > F_Skills.id]
+  applicant_id serial [ref: > F_Applicant.id]
+  skill_id serial [ref: > F_Skills.id]
 }
 
 Table F_Skills {
-  id number(16,0) [pk, unique, increment]
+  id serial [pk, unique, increment]
   category varchar(20)
 }
 
 Table F_Application {
-  id number(16,0) [pk, unique, increment]
-  applicant_id number(16,0) [ref: > F_Applicant.id]
+  id serial [pk, unique, increment]
+  applicant_id serial [ref: > F_Applicant.id]
   role varchar(20)
   status varchar(10)
   created_by varchar(20)
@@ -44,9 +44,9 @@ Table F_Application {
 }
 
 Table F_Document {
-  id number(16,0) [pk, unique, increment]
-  application_id number(16,0) [ref: > F_Application.id]
-  content blob
+  id serial [pk, unique, increment]
+  application_id serial [ref: > F_Application.id]
+  content bytea
   created_by varchar(20)
   modified_by varchar(20)
   created_at date

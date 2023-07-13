@@ -20,8 +20,8 @@ CREATE TABLE "F_Applicant" (
 );
 
 CREATE TABLE "Applicant_Skills" (
-  "applicant_id" number(16,0),
-  "skill_id" number(16,0)
+  "applicant_id" serial,
+  "skill_id" serial
 );
 
 CREATE TABLE "F_Skills" (
@@ -31,7 +31,7 @@ CREATE TABLE "F_Skills" (
 
 CREATE TABLE "F_Application" (
   "id" SERIAL UNIQUE PRIMARY KEY,
-  "applicant_id" number(16,0),
+  "applicant_id" serial,
   "role" varchar(20),
   "status" varchar(10),
   "created_by" varchar(20),
@@ -42,8 +42,8 @@ CREATE TABLE "F_Application" (
 
 CREATE TABLE "F_Document" (
   "id" SERIAL UNIQUE PRIMARY KEY,
-  "application_id" number(16,0),
-  "content" blob,
+  "application_id" serial,
+  "content" bytea,
   "created_by" varchar(20),
   "modified_by" varchar(20),
   "created_at" date,
