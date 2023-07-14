@@ -19,9 +19,10 @@ CREATE TABLE "F_Applicant" (
   "modified_at" date
 );
 
-CREATE TABLE "Applicant_Skills" (
+CREATE TABLE "F_Applicant_Skills" (
   "applicant_id" serial,
-  "skill_id" serial
+  "skill_id" serial,
+  "name" varchar(20)
 );
 
 CREATE TABLE "F_Skills" (
@@ -50,9 +51,9 @@ CREATE TABLE "F_Document" (
   "modified_at" date
 );
 
-ALTER TABLE "Applicant_Skills" ADD FOREIGN KEY ("applicant_id") REFERENCES "F_Applicant" ("id");
+ALTER TABLE "F_Applicant_Skills" ADD FOREIGN KEY ("applicant_id") REFERENCES "F_Applicant" ("id");
 
-ALTER TABLE "Applicant_Skills" ADD FOREIGN KEY ("skill_id") REFERENCES "F_Skills" ("id");
+ALTER TABLE "F_Applicant_Skills" ADD FOREIGN KEY ("skill_id") REFERENCES "F_Skills" ("id");
 
 ALTER TABLE "F_Application" ADD FOREIGN KEY ("applicant_id") REFERENCES "F_Applicant" ("id");
 

@@ -22,9 +22,10 @@ Table F_Applicant {
   modified_at date
 }
 
-Table Applicant_Skills {
+Table F_Applicant_Skills {
   applicant_id serial [ref: > F_Applicant.id]
   skill_id serial [ref: > F_Skills.id]
+  name varchar(20)
 }
 
 Table F_Skills {
