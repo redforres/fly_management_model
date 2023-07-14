@@ -25,19 +25,19 @@ Table F_Applicant {
 Table F_Applicant_Skills {
   applicant_id serial [ref: > F_Applicant.id]
   skill_id serial [ref: > F_Skills.id]
-  name varchar(20)
 }
 
 Table F_Skills {
   id serial [pk, unique, increment]
   category varchar(20)
+  name varchar(20)
 }
 
 Table F_Application {
   id serial [pk, unique, increment]
   applicant_id serial [ref: > F_Applicant.id]
-  role varchar(20)
-  status varchar(10)
+  role varchar(40)
+  status varchar(20)
   created_by varchar(20)
   modified_by varchar(20)
   created_at date

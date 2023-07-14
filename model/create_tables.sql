@@ -21,20 +21,20 @@ CREATE TABLE "F_Applicant" (
 
 CREATE TABLE "F_Applicant_Skills" (
   "applicant_id" serial,
-  "skill_id" serial,
-  "name" varchar(20)
+  "skill_id" serial
 );
 
 CREATE TABLE "F_Skills" (
   "id" SERIAL UNIQUE PRIMARY KEY,
-  "category" varchar(20)
+  "category" varchar(20),
+  "name" varchar(20)
 );
 
 CREATE TABLE "F_Application" (
   "id" SERIAL UNIQUE PRIMARY KEY,
   "applicant_id" serial,
-  "role" varchar(20),
-  "status" varchar(10),
+  "role" varchar(40),
+  "status" varchar(20),
   "created_by" varchar(20),
   "modified_by" varchar(20),
   "created_at" date,
