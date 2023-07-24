@@ -35,8 +35,8 @@
         <appender-ref ref="Console" />
     </root>
 
-    <!-- LOG "govonca.cbs.vision.mlm" at TRACE level -->
-    <logger name="govonca.cbs.vision.mlm" level="trace" additivity="false">
+    <!-- LOG "ca.fly.mtm.admin" at TRACE level -->
+    <logger name="ca.fly.mtm.admin" level="trace" additivity="false">
         <!-- <appender-ref ref="RollingFile" />  -->
         <appender-ref ref="Console" />
     </logger>

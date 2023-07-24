@@ -7,8 +7,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
 @Configuration
-@EntityScan("govonca.cbs.vision.mlm.public_portal.domain")
-@EnableJpaRepositories("govonca.cbs.vision.mlm.public_portal.repos")
+@EntityScan("ca.fly.mtm.admin.entity")
+@EnableJpaRepositories("ca.fly.mtm.admin.repository")
 @EnableTransactionManagement
 public class DomainConfig {
 }

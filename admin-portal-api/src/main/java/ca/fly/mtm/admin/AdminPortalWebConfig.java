@@ -18,9 +18,9 @@ import javax.annotation.Resource;
 @Slf4j
 @Configuration
 @AutoConfigurationPackage
-@ComponentScan("govonca.cbs.vision.mlm.common")
-@EnableJpaRepositories("govonca.cbs.vision.mlm.common.repos")
-@EntityScan("govonca.cbs.vision.mlm.common.domain")
+@ComponentScan("ca.fly.mtm.admin")
+@EnableJpaRepositories("ca.fly.mtm.admin.repository")
+@EntityScan("ca.fly.mtm.admin.entity")
 public class AdminPortalWebConfig implements WebMvcConfigurer{
 
 

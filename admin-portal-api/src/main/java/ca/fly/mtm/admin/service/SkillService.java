@@ -3,7 +3,7 @@ package ca.fly.mtm.admin.service;
 
 import ca.fly.mtm.admin.entity.Skill;
 import ca.fly.mtm.admin.model.SkillDTO;
-import ca.fly.mtm.admin.repositoy.SkillRepository;
+import ca.fly.mtm.admin.repository.SkillRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

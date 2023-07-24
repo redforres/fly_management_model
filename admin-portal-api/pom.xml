@@ -10,7 +10,7 @@
         <relativePath /><!-- lookup parent from repository -->
     </parent>
 
-    <groupId>govonca.cbs.vision.mlm</groupId>
+    <groupId>ca.fly.mtm.admin</groupId>
     <artifactId>admin-portal</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>admin-portal</name>
@@ -29,7 +29,7 @@
                 <maven.compiler.source>8</maven.compiler.source>
                 <maven.compiler.target>8</maven.compiler.target>
                 <webapp.directory>${basedir}/src/main/webapp/</webapp.directory>
-                <deployment.context.path>/mlm</deployment.context.path>
+                <deployment.context.path>/mtm</deployment.context.path>
             </properties>
 
             <dependencies>
@@ -241,11 +241,6 @@
                     <scope>provided</scope>
                 </dependency>
                 <dependency>
-                    <groupId>govonca.cbs.vision.mlm</groupId>
-                    <artifactId>portal-common</artifactId>
-                    <version>0.0.1-RELEASE</version>
-                </dependency>
-                <dependency>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-starter-security</artifactId>
                 </dependency>
@@ -272,7 +267,7 @@
     </profiles>
 
     <build>
-        <finalName>mlm-admin-portal-api</finalName>
+        <finalName>mtm-admin-portal-api</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

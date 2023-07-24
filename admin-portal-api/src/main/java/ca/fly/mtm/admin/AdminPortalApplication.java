@@ -18,7 +18,7 @@ public class AdminPortalApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
 
-        log.info("Starting the MLM Municipality Portal Application");
+        log.info("Starting the FLY MTM ADMIN Portal Application");
         SpringApplication.run(AdminPortalApplication.class, args);
     }
 
