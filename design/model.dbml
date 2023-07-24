@@ -1,0 +1,58 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table F_Applicant {
+  id serial [pk, unique, increment]
+  first_name varchar(20) [not null]
+  middle_name varchar(20)
+  last_name varchar(20) [not null]
+  email varchar(50)
+  phone varchar(20)
+  WeChat varchar(20)
+  LinkedIn varchar(20)
+  address_street varchar(100)
+  address_suite_number varchar(10)
+  address_city varchar(50)
+  address_postal_code varchar(20)
+  address_province varchar(20)
+  address_country varchar(20)
+  created_by varchar(20)
+  modified_by varchar(20)
+  created_at date
+  modified_at date
+}
+
+Table F_Applicant_Skills {
+  applicant_id serial [ref: > F_Applicant.id]
+  skill_id serial [ref: > F_Skills.id]
+}
+
+Table F_Skills {
+  id serial [pk, unique, increment]
+  category varchar(20)
+  name varchar(20)
+}
+
+Table F_Application {
+  id serial [pk, unique, increment]
+  applicant_id serial [ref: > F_Applicant.id]
+  role varchar(40)
+  status varchar(20)
+  created_by varchar(20)
+  modified_by varchar(20)
+  created_at date
+  modified_at date
+}
+
+Table F_Document {
+  id serial [pk, unique, increment]
+  application_id serial [ref: > F_Application.id]
+  content bytea
+  created_by varchar(20)
+  modified_by varchar(20)
+  created_at date
+  modified_at date
+}
+
+// Ref: F_Applicant.id <> F_Skills.id // many-to-many
+
