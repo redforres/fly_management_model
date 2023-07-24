@@ -38,7 +38,7 @@ public class DataSourceConfig {
     @Bean
     public DataSource getDataSource() throws NamingException {
 
-        String dsJndiName = environment.getProperty("spring.datasource.jndi-name");
+       /* String dsJndiName = environment.getProperty("spring.datasource.jndi-name");
         if (!StringUtils.isStringNUllorEmpty(dsJndiName)) {
 
             log.info("initialize the data source: jdbc/webvision");
@@ -52,7 +52,7 @@ public class DataSourceConfig {
             catch(Exception e){
                 log.info("Failed to connect: jdbc/webvision, trying local connection pool");
             }
-        }
+        }*/
 
         log.info("initialize the local data source:");
         PoolDataSource pds = null;
