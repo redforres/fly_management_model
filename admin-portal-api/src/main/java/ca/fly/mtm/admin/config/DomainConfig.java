@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EntityScan("ca.fly.mtm.admin.entity")
-@EnableJpaRepositories("ca.fly.mtm.admin.repository")
+//@EnableJpaRepositories("ca.fly.mtm.admin.repository")
 @EnableTransactionManagement
 public class DomainConfig {
 }

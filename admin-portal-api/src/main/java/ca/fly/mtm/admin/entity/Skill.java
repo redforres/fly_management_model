@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Builder(builderClassName = "Builder", toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@Table( name = "F_SKILL")
+@Table(name = "F_SKILL")
 @Getter
 @Setter
 
