@@ -36,7 +36,7 @@ public class SkillService {
     public Long create(final SkillDTO skillDTO) {
         Skill office = new Skill();
         office = mapToEntity(skillDTO, office);
-        return skillRepository.save(office).getSkillId();
+        return skillRepository.save(office).getId();
     }
 
     public void update(final Long skilld, final SkillDTO skillDTO) {
@@ -52,7 +52,7 @@ public class SkillService {
     private SkillDTO mapToDTO(Skill skill) {
 
         SkillDTO.Builder builder = SkillDTO.builder()
-                .id(skill.getSkillId())
+                .id(skill.getId())
                 .category(skill.getCategory())
                 .name(skill.getName());
 
