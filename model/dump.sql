@@ -49,22 +49,22 @@ CREATE TABLE public."F_Applicant" (
 ALTER TABLE public."F_Applicant" OWNER TO heavywhale;
 
 --
--- Name: F_Applicant_Skills; Type: TABLE; Schema: public; Owner: heavywhale
+-- Name: F_Applicant_Skill; Type: TABLE; Schema: public; Owner: heavywhale
 --
 
-CREATE TABLE public."F_Applicant_Skills" (
+CREATE TABLE public."F_Applicant_Skill" (
     applicant_id integer NOT NULL,
     skill_id integer NOT NULL
 );
 
 
-ALTER TABLE public."F_Applicant_Skills" OWNER TO heavywhale;
+ALTER TABLE public."F_Applicant_Skill" OWNER TO heavywhale;
 
 --
--- Name: F_Applicant_Skills_applicant_id_seq; Type: SEQUENCE; Schema: public; Owner: heavywhale
+-- Name: F_Applicant_Skill_applicant_id_seq; Type: SEQUENCE; Schema: public; Owner: heavywhale
 --
 
-CREATE SEQUENCE public."F_Applicant_Skills_applicant_id_seq"
+CREATE SEQUENCE public."F_Applicant_Skill_applicant_id_seq"
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -73,20 +73,20 @@ CREATE SEQUENCE public."F_Applicant_Skills_applicant_id_seq"
     CACHE 1;
 
 
-ALTER TABLE public."F_Applicant_Skills_applicant_id_seq" OWNER TO heavywhale;
+ALTER TABLE public."F_Applicant_Skill_applicant_id_seq" OWNER TO heavywhale;
 
 --
--- Name: F_Applicant_Skills_applicant_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: heavywhale
+-- Name: F_Applicant_Skill_applicant_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: heavywhale
 --
 
-ALTER SEQUENCE public."F_Applicant_Skills_applicant_id_seq" OWNED BY public."F_Applicant_Skills".applicant_id;
+ALTER SEQUENCE public."F_Applicant_Skill_applicant_id_seq" OWNED BY public."F_Applicant_Skill".applicant_id;
 
 
 --
--- Name: F_Applicant_Skills_skill_id_seq; Type: SEQUENCE; Schema: public; Owner: heavywhale
+-- Name: F_Applicant_Skill_skill_id_seq; Type: SEQUENCE; Schema: public; Owner: heavywhale
 --
 
-CREATE SEQUENCE public."F_Applicant_Skills_skill_id_seq"
+CREATE SEQUENCE public."F_Applicant_Skill_skill_id_seq"
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -95,13 +95,13 @@ CREATE SEQUENCE public."F_Applicant_Skills_skill_id_seq"
     CACHE 1;
 
 
-ALTER TABLE public."F_Applicant_Skills_skill_id_seq" OWNER TO heavywhale;
+ALTER TABLE public."F_Applicant_Skill_skill_id_seq" OWNER TO heavywhale;
 
 --
--- Name: F_Applicant_Skills_skill_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: heavywhale
+-- Name: F_Applicant_Skill_skill_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: heavywhale
 --
 
-ALTER SEQUENCE public."F_Applicant_Skills_skill_id_seq" OWNED BY public."F_Applicant_Skills".skill_id;
+ALTER SEQUENCE public."F_Applicant_Skill_skill_id_seq" OWNED BY public."F_Applicant_Skill".skill_id;
 
 
 --
@@ -250,23 +250,23 @@ ALTER SEQUENCE public."F_Document_id_seq" OWNED BY public."F_Document".id;
 
 
 --
--- Name: F_Skills; Type: TABLE; Schema: public; Owner: heavywhale
+-- Name: F_Skill; Type: TABLE; Schema: public; Owner: heavywhale
 --
 
-CREATE TABLE public."F_Skills" (
+CREATE TABLE public."F_Skill" (
     id integer NOT NULL,
     category character varying(20),
     name character varying(20)
 );
 
 
-ALTER TABLE public."F_Skills" OWNER TO heavywhale;
+ALTER TABLE public."F_Skill" OWNER TO heavywhale;
 
 --
--- Name: F_Skills_id_seq; Type: SEQUENCE; Schema: public; Owner: heavywhale
+-- Name: F_Skill_id_seq; Type: SEQUENCE; Schema: public; Owner: heavywhale
 --
 
-CREATE SEQUENCE public."F_Skills_id_seq"
+CREATE SEQUENCE public."F_Skill_id_seq"
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -275,13 +275,13 @@ CREATE SEQUENCE public."F_Skills_id_seq"
     CACHE 1;
 
 
-ALTER TABLE public."F_Skills_id_seq" OWNER TO heavywhale;
+ALTER TABLE public."F_Skill_id_seq" OWNER TO heavywhale;
 
 --
--- Name: F_Skills_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: heavywhale
+-- Name: F_Skill_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: heavywhale
 --
 
-ALTER SEQUENCE public."F_Skills_id_seq" OWNED BY public."F_Skills".id;
+ALTER SEQUENCE public."F_Skill_id_seq" OWNED BY public."F_Skill".id;
 
 
 --
@@ -292,17 +292,17 @@ ALTER TABLE ONLY public."F_Applicant" ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
--- Name: F_Applicant_Skills applicant_id; Type: DEFAULT; Schema: public; Owner: heavywhale
+-- Name: F_Applicant_Skill applicant_id; Type: DEFAULT; Schema: public; Owner: heavywhale
 --
 
-ALTER TABLE ONLY public."F_Applicant_Skills" ALTER COLUMN applicant_id SET DEFAULT nextval('public."F_Applicant_Skills_applicant_id_seq"'::regclass);
+ALTER TABLE ONLY public."F_Applicant_Skill" ALTER COLUMN applicant_id SET DEFAULT nextval('public."F_Applicant_Skill_applicant_id_seq"'::regclass);
 
 
 --
--- Name: F_Applicant_Skills skill_id; Type: DEFAULT; Schema: public; Owner: heavywhale
+-- Name: F_Applicant_Skill skill_id; Type: DEFAULT; Schema: public; Owner: heavywhale
 --
 
-ALTER TABLE ONLY public."F_Applicant_Skills" ALTER COLUMN skill_id SET DEFAULT nextval('public."F_Applicant_Skills_skill_id_seq"'::regclass);
+ALTER TABLE ONLY public."F_Applicant_Skill" ALTER COLUMN skill_id SET DEFAULT nextval('public."F_Applicant_Skill_skill_id_seq"'::regclass);
 
 
 --
@@ -334,10 +334,10 @@ ALTER TABLE ONLY public."F_Document" ALTER COLUMN application_id SET DEFAULT nex
 
 
 --
--- Name: F_Skills id; Type: DEFAULT; Schema: public; Owner: heavywhale
+-- Name: F_Skill id; Type: DEFAULT; Schema: public; Owner: heavywhale
 --
 
-ALTER TABLE ONLY public."F_Skills" ALTER COLUMN id SET DEFAULT nextval('public."F_Skills_id_seq"'::regclass);
+ALTER TABLE ONLY public."F_Skill" ALTER COLUMN id SET DEFAULT nextval('public."F_Skill_id_seq"'::regclass);
 
 
 --
@@ -357,10 +357,10 @@ COPY public."F_Applicant" (id, first_name, middle_name, last_name, email, phone,
 
 
 --
--- Data for Name: F_Applicant_Skills; Type: TABLE DATA; Schema: public; Owner: heavywhale
+-- Data for Name: F_Applicant_Skill; Type: TABLE DATA; Schema: public; Owner: heavywhale
 --
 
-COPY public."F_Applicant_Skills" (applicant_id, skill_id) FROM stdin;
+COPY public."F_Applicant_Skill" (applicant_id, skill_id) FROM stdin;
 1	3
 1	5
 1	10
@@ -454,10 +454,10 @@ COPY public."F_Document" (id, application_id, content, created_by, modified_by, 
 
 
 --
--- Data for Name: F_Skills; Type: TABLE DATA; Schema: public; Owner: heavywhale
+-- Data for Name: F_Skill; Type: TABLE DATA; Schema: public; Owner: heavywhale
 --
 
-COPY public."F_Skills" (id, category, name) FROM stdin;
+COPY public."F_Skill" (id, category, name) FROM stdin;
 1	Programming	Python
 2	Programming	JavaScript
 3	Programming	Java
@@ -472,17 +472,17 @@ COPY public."F_Skills" (id, category, name) FROM stdin;
 
 
 --
--- Name: F_Applicant_Skills_applicant_id_seq; Type: SEQUENCE SET; Schema: public; Owner: heavywhale
+-- Name: F_Applicant_Skill_applicant_id_seq; Type: SEQUENCE SET; Schema: public; Owner: heavywhale
 --
 
-SELECT pg_catalog.setval('public."F_Applicant_Skills_applicant_id_seq"', 1, false);
+SELECT pg_catalog.setval('public."F_Applicant_Skill_applicant_id_seq"', 1, false);
 
 
 --
--- Name: F_Applicant_Skills_skill_id_seq; Type: SEQUENCE SET; Schema: public; Owner: heavywhale
+-- Name: F_Applicant_Skill_skill_id_seq; Type: SEQUENCE SET; Schema: public; Owner: heavywhale
 --
 
-SELECT pg_catalog.setval('public."F_Applicant_Skills_skill_id_seq"', 1, false);
+SELECT pg_catalog.setval('public."F_Applicant_Skill_skill_id_seq"', 1, false);
 
 
 --
@@ -521,10 +521,10 @@ SELECT pg_catalog.setval('public."F_Document_id_seq"', 20, true);
 
 
 --
--- Name: F_Skills_id_seq; Type: SEQUENCE SET; Schema: public; Owner: heavywhale
+-- Name: F_Skill_id_seq; Type: SEQUENCE SET; Schema: public; Owner: heavywhale
 --
 
-SELECT pg_catalog.setval('public."F_Skills_id_seq"', 10, true);
+SELECT pg_catalog.setval('public."F_Skill_id_seq"', 10, true);
 
 
 --
@@ -552,27 +552,27 @@ ALTER TABLE ONLY public."F_Document"
 
 
 --
--- Name: F_Skills F_Skills_pkey; Type: CONSTRAINT; Schema: public; Owner: heavywhale
+-- Name: F_Skill F_Skill_pkey; Type: CONSTRAINT; Schema: public; Owner: heavywhale
 --
 
-ALTER TABLE ONLY public."F_Skills"
-    ADD CONSTRAINT "F_Skills_pkey" PRIMARY KEY (id);
-
-
---
--- Name: F_Applicant_Skills F_Applicant_Skills_applicant_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: heavywhale
---
-
-ALTER TABLE ONLY public."F_Applicant_Skills"
-    ADD CONSTRAINT "F_Applicant_Skills_applicant_id_fkey" FOREIGN KEY (applicant_id) REFERENCES public."F_Applicant"(id);
+ALTER TABLE ONLY public."F_Skill"
+    ADD CONSTRAINT "F_Skill_pkey" PRIMARY KEY (id);
 
 
 --
--- Name: F_Applicant_Skills F_Applicant_Skills_skill_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: heavywhale
+-- Name: F_Applicant_Skill F_Applicant_Skill_applicant_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: heavywhale
 --
 
-ALTER TABLE ONLY public."F_Applicant_Skills"
-    ADD CONSTRAINT "F_Applicant_Skills_skill_id_fkey" FOREIGN KEY (skill_id) REFERENCES public."F_Skills"(id);
+ALTER TABLE ONLY public."F_Applicant_Skill"
+    ADD CONSTRAINT "F_Applicant_Skill_applicant_id_fkey" FOREIGN KEY (applicant_id) REFERENCES public."F_Applicant"(id);
+
+
+--
+-- Name: F_Applicant_Skill F_Applicant_Skill_skill_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: heavywhale
+--
+
+ALTER TABLE ONLY public."F_Applicant_Skill"
+    ADD CONSTRAINT "F_Applicant_Skill_skill_id_fkey" FOREIGN KEY (skill_id) REFERENCES public."F_Skill"(id);
 
 
 --
