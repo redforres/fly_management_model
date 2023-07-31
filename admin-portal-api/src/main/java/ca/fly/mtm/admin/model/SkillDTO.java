@@ -22,6 +22,6 @@ public class SkillDTO {
     @Size(max = 255)
     private String name;
 
-    @JsonFormat(pattern = "MMM dd, yyyy")
-    private LocalDate createdDate;
+//    @JsonFormat(pattern = "MMM dd, yyyy")
+//    private LocalDate createdDate;
 }

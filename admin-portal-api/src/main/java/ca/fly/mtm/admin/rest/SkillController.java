@@ -15,48 +15,48 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
-@RequestMapping(value = "/api/municipality", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/skill", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SkillController {
 
     @Autowired
-    private SkillService officeService;
+    private SkillService skillService;
 
     @GetMapping("/search")
-    public ResponseEntity<List<SkillDTO>> getAllMunicipalityOffices() {
-        return ResponseEntity.ok(officeService.findAll());
+    public ResponseEntity<List<SkillDTO>> getAllSkillOffices() {
+        return ResponseEntity.ok(skillService.findAll());
     }
 
 
     @PostMapping("/new")
-    public ResponseEntity<Long> createMunicipalityOffice(
-            @RequestBody @Valid SkillDTO municipalityDTO) {
-        return new ResponseEntity<>(officeService.create(municipalityDTO), HttpStatus.CREATED);
+    public ResponseEntity<Long> createSkillOffice(
+            @RequestBody @Valid SkillDTO skillDTO) {
+        return new ResponseEntity<>(skillService.create(skillDTO), HttpStatus.CREATED);
     }
 
-    @PostMapping("/update/{municipalityId}")
-    public ResponseEntity<ApplicationResult> updateMunicipalityOffice(@PathVariable Long municipalityId,
-                                                                      @RequestBody @Valid SkillDTO municipalityDTO) {
+    @PostMapping("/update/{skillId}")
+    public ResponseEntity<ApplicationResult> updateSkillOffice(@PathVariable Long skillId,
+                                                               @RequestBody @Valid SkillDTO skillDTO) {
 
         ApplicationResult result = new ApplicationResult();
 
-        officeService.update(municipalityId, municipalityDTO);
+        skillService.update(skillId, skillDTO);
 
 
         result.setStatus("ok");
-        result.setMsg("Successfuly updated");
+        result.setMsg("Successfully updated");
 
         return ResponseEntity.ok(result);
     }
 
-    @PostMapping("/delete/{municipalityId}")
-    public ResponseEntity<ApplicationResult> deleteMunicipalityOffice(@PathVariable Long municipalityId) {
+    @PostMapping("/delete/{skillId}")
+    public ResponseEntity<ApplicationResult> deleteSkillOffice(@PathVariable Long skillId) {
 
         ApplicationResult result = new ApplicationResult();
 
-        officeService.delete(municipalityId);
+        skillService.delete(skillId);
 
         result.setStatus("ok");
-        result.setMsg("Successfuly deleted");
+        result.setMsg("Successfully deleted");
 
         return ResponseEntity.ok(result);
     }
