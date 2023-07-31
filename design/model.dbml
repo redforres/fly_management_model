@@ -22,12 +22,12 @@ Table F_Applicant {
   modified_at date
 }
 
-Table F_Applicant_Skills {
+Table F_Applicant_Skill {
   applicant_id serial [ref: > F_Applicant.id]
-  skill_id serial [ref: > F_Skills.id]
+  skill_id serial [ref: > F_Skill.id]
 }
 
-Table F_Skills {
+Table F_Skill {
   id serial [pk, unique, increment]
   category varchar(20)
   name varchar(20)
@@ -54,5 +54,5 @@ Table F_Document {
   modified_at date
 }
 
-// Ref: F_Applicant.id <> F_Skills.id // many-to-many
+// Ref: F_Applicant.id <> F_Skill.id // many-to-many
 

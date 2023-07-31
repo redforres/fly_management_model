@@ -20,7 +20,7 @@ VALUES
 ('Flora', '', 'Gavrilova', 'FloraGavrilova@armyspy.com', '05.22.23.45.25', 'Flora_France', 'Gavrilova_FR',
   '89, Faubourg Saint Honoré', 'NA', 'PAU', '64000', 'NA', 'France', 'Admin', 'Admin', '2023-02-07', '2023-02-08');
 
-INSERT INTO "F_Skills" ("category", "name") 
+INSERT INTO "F_Skill" ("category", "name") 
 VALUES
 ('Programming', 'Python'),
 ('Programming', 'JavaScript'),
@@ -33,7 +33,7 @@ VALUES
 ('Cloud Computing', 'AWS'),
 ('Cloud Computing', 'Azure');
 
-INSERT INTO "F_Applicant_Skills" ("applicant_id", "skill_id") 
+INSERT INTO "F_Applicant_Skill" ("applicant_id", "skill_id") 
 VALUES
 (1, 3),
 (1, 5),
