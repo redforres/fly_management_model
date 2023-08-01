@@ -20,29 +20,30 @@ public class SkillService {
     private SkillRepository skillRepository;
 
 
-    public List<SkillDTO> findAll() {
+    public List<SkillDTO> getAll() {
         return skillRepository.findAll()
                 .stream()
-                .map(skill -> mapToDTO(skill))
+                .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
 
-    public SkillDTO get(final Long skillId) {
-        return skillRepository.findById(skillId)
-                .map(office -> mapToDTO(office))
+    public SkillDTO get(final Long id) {
+        return skillRepository.findById(id)
+                .map(this::mapToDTO)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     public Long create(final SkillDTO skillDTO) {
         Skill office = new Skill();
-        office = mapToEntity(skillDTO, office);
+        mapToEntity(skillDTO, office);
         return skillRepository.save(office).getId();
     }
 
-    public void update(final Long skilld, final SkillDTO skillDTO) {
-        final Skill skill = skillRepository.findById(skilld)
+    public void update(final Long id, final SkillDTO skillDTO) {
+        final Skill skill = skillRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        skillRepository.save(mapToEntity(skillDTO, skill));
+        mapToEntity(skillDTO, skill);
+        skillRepository.save(skill);
     }
 
     public void delete(final Long officeId) {

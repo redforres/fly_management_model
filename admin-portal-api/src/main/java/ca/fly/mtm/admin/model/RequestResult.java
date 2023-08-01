@@ -4,12 +4,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Getter @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ApplicationResult {
-
-    public ApplicationResult(){}
+public class RequestResult {
+    public RequestResult() {}
 
     private String status;
     private String token;

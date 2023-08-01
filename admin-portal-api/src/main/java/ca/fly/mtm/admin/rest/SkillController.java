@@ -4,7 +4,7 @@ package ca.fly.mtm.admin.rest;
 import java.util.List;
 import javax.validation.Valid;
 
-import ca.fly.mtm.admin.model.ApplicationResult;
+import ca.fly.mtm.admin.model.RequestResult;
 import ca.fly.mtm.admin.service.SkillService;
 import ca.fly.mtm.admin.model.SkillDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,26 +21,24 @@ public class SkillController {
     @Autowired
     private SkillService skillService;
 
-    @GetMapping("/search")
-    public ResponseEntity<List<SkillDTO>> getAllSkillOffices() {
-        return ResponseEntity.ok(skillService.findAll());
+    @GetMapping("/all")
+    public ResponseEntity<List<SkillDTO>> getAllSkills() {
+        return ResponseEntity.ok(skillService.getAll());
     }
 
 
     @PostMapping("/new")
-    public ResponseEntity<Long> createSkillOffice(
+    public ResponseEntity<Long> createSkill(
             @RequestBody @Valid SkillDTO skillDTO) {
         return new ResponseEntity<>(skillService.create(skillDTO), HttpStatus.CREATED);
     }
 
     @PostMapping("/update/{skillId}")
-    public ResponseEntity<ApplicationResult> updateSkillOffice(@PathVariable Long skillId,
-                                                               @RequestBody @Valid SkillDTO skillDTO) {
-
-        ApplicationResult result = new ApplicationResult();
+    public ResponseEntity<RequestResult> updateSkill(@PathVariable Long skillId,
+                                                     @RequestBody @Valid SkillDTO skillDTO) {
+        RequestResult result = new RequestResult();
 
         skillService.update(skillId, skillDTO);
-
 
         result.setStatus("ok");
         result.setMsg("Successfully updated");
@@ -49,9 +47,9 @@ public class SkillController {
     }
 
     @PostMapping("/delete/{skillId}")
-    public ResponseEntity<ApplicationResult> deleteSkillOffice(@PathVariable Long skillId) {
+    public ResponseEntity<RequestResult> deleteSkill(@PathVariable Long skillId) {
 
-        ApplicationResult result = new ApplicationResult();
+        RequestResult result = new RequestResult();
 
         skillService.delete(skillId);
 
