@@ -9,7 +9,7 @@ import java.util.Date;
 @Builder(builderClassName = "Builder", toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "F_Document")
+@Table(name = "\"F_Document\"")
 @Getter
 @Setter
 public class Document {

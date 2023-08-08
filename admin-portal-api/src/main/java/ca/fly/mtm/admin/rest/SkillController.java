@@ -41,7 +41,7 @@ public class SkillController {
         skillService.update(skillId, skillDTO);
 
         result.setStatus("ok");
-        result.setMsg("Successfully updated");
+        result.setMsg("Successfully updated a skill");
 
         return ResponseEntity.ok(result);
     }

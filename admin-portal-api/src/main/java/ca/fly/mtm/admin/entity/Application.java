@@ -1,5 +1,6 @@
 package ca.fly.mtm.admin.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -9,7 +10,7 @@ import java.util.Date;
 @Builder(builderClassName = "Builder", toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "F_Application")
+@Table(name = "\"F_Application\"")
 @Getter
 @Setter
 public class Application {
@@ -18,8 +19,10 @@ public class Application {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "applicant_id")
-    private Long applicantId;
+    @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name = "applicant_id", nullable = false)
+    private Applicant applicant;
 
     @Column(name = "role")
     private String role;

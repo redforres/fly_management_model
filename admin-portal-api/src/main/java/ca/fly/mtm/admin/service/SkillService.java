@@ -27,7 +27,7 @@ public class SkillService {
                 .collect(Collectors.toList());
     }
 
-    public SkillDTO get(final Long id) {
+    public SkillDTO getById(final Long id) {
         return skillRepository.findById(id)
                 .map(this::mapToDTO)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
