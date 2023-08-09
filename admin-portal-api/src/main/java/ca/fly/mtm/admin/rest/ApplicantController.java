@@ -24,6 +24,11 @@ public class ApplicantController {
         return ResponseEntity.ok(applicantService.getAll());
     }
 
+    @GetMapping("/{applicantId}")
+    public ResponseEntity<ApplicantDTO> getApplicantById(@PathVariable Long applicantId) {
+        return ResponseEntity.ok(applicantService.getById(applicantId));
+    }
+
     @PostMapping("/new")
     public ResponseEntity<Long> createApplicant(@RequestBody @Valid ApplicantDTO applicantDTO) {
         return new ResponseEntity<>(applicantService.create(applicantDTO), HttpStatus.CREATED);

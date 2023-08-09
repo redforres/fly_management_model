@@ -24,6 +24,11 @@ public class ApplicationController {
         return ResponseEntity.ok(applicationService.getAll());
     }
 
+    @GetMapping("/{applicationId}")
+    public ResponseEntity<ApplicationDTO> getApplicationById(@PathVariable Long applicationId) {
+        return ResponseEntity.ok(applicationService.getById(applicationId));
+    }
+
     @PostMapping("/new")
     public ResponseEntity<Long> createApplication(@RequestBody @Valid ApplicationDTO applicationDTO) {
         return new ResponseEntity<>(applicationService.create(applicationDTO), HttpStatus.CREATED);
