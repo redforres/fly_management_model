@@ -1,5 +1,6 @@
 package ca.fly.mtm.admin.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -18,8 +19,10 @@ public class Document {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "application_id")
-    private Long applicationId;
+    @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name = "application_id", nullable = false)
+    private Application application;
 
     @Column(name = "content")
     private byte[] content;

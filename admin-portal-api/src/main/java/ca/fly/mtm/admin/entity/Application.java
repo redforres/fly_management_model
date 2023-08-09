@@ -1,10 +1,12 @@
 package ca.fly.mtm.admin.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Builder(builderClassName = "Builder", toBuilder = true)
@@ -37,8 +39,12 @@ public class Application {
     private String modifiedBy;
 
     @Column(name = "created_at")
-    private Date createdAt;
+    private LocalDate createdAt;
 
     @Column(name = "modified_at")
-    private Date modifiedAt;
+    private LocalDate modifiedAt;
+
+    @OneToMany(mappedBy = "application", fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<Document> documents;
 }
