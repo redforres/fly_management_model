@@ -69,7 +69,8 @@ public class ApplicantService {
                 .modifiedBy(applicant.getModifiedBy())
                 .createdAt(applicant.getCreatedAt())
                 .modifiedAt(applicant.getModifiedAt())
-                .applications(applicant.getApplications());
+                .applications(applicant.getApplications())
+                .applicantSkills(applicant.getApplicantSkills());
 
         return builder.build();
     }
@@ -145,6 +146,10 @@ public class ApplicantService {
 
         if (applicantDTO.getApplications() != null) {
             applicant.setApplications(applicantDTO.getApplications());
+        }
+
+        if (applicantDTO.getApplicantSkills() != null) {
+            applicant.setApplicantSkills(applicantDTO.getApplicantSkills());
         }
 
         return applicant;

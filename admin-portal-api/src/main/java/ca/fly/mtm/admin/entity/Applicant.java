@@ -74,4 +74,8 @@ public class Applicant {
     @OneToMany(mappedBy = "applicant", fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<Application> applications;
+
+    @OneToMany(mappedBy = "applicant_AS", fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<ApplicantSkill> applicantSkills;
 }

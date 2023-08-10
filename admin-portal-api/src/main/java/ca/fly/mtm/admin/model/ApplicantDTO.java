@@ -1,5 +1,6 @@
 package ca.fly.mtm.admin.model;
 
+import ca.fly.mtm.admin.entity.ApplicantSkill;
 import ca.fly.mtm.admin.entity.Application;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
@@ -68,4 +69,6 @@ public class ApplicantDTO {
     private LocalDate modifiedAt;
 
     private List<Application> applications;
+
+    private List<ApplicantSkill> applicantSkills;
 }

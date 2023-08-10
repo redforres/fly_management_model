@@ -1,5 +1,6 @@
 package ca.fly.mtm.admin.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,11 +13,18 @@ import javax.persistence.*;
 @Getter
 @Setter
 public class ApplicantSkill {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "applicant_id")
-    private Long applicantId;
+    @EmbeddedId
+    private ApplicantSkillId id;
 
-    @Column(name = "skill_id")
-    private Long skillId;
+    @ManyToOne
+    @MapsId("applicantId")
+    @JoinColumn(name = "applicant_id")
+    @JsonBackReference
+    private Applicant applicant_AS;
+
+    @ManyToOne
+    @MapsId("skillId")
+    @JoinColumn(name = "skill_id")
+    @JsonBackReference
+    private Skill skill_AS;
 }
