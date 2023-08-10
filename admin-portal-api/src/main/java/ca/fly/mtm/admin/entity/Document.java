@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Builder(builderClassName = "Builder", toBuilder = true)
@@ -34,8 +34,8 @@ public class Document {
     private String modifiedBy;
 
     @Column(name = "created_at")
-    private Date createdAt;
+    private LocalDate createdAt;
 
     @Column(name = "modified_at")
-    private Date modifiedAt;
+    private LocalDate modifiedAt;
 }
