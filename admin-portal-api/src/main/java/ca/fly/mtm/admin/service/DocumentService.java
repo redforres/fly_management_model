@@ -60,10 +60,6 @@ public class DocumentService {
     }
 
     private Document mapToEntity(DocumentDTO documentDTO, Document document) {
-        if (documentDTO.getId() != null) {
-            document.setId(documentDTO.getId());
-        }
-
         if (documentDTO.getApplication() != null) {
             document.setApplication(documentDTO.getApplication());
         }

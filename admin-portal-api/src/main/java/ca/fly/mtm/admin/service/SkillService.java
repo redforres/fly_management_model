@@ -4,7 +4,6 @@ package ca.fly.mtm.admin.service;
 import ca.fly.mtm.admin.entity.Skill;
 import ca.fly.mtm.admin.model.SkillDTO;
 import ca.fly.mtm.admin.repository.SkillRepository;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -62,16 +61,15 @@ public class SkillService {
     }
 
     private Skill mapToEntity(SkillDTO skillDTO, Skill skill) {
-
-        if (!StringUtils.isEmpty(skillDTO.getCategory())) {
+        if (skillDTO.getCategory() != null) {
             skill.setCategory(skillDTO.getCategory());
         }
 
-        if (!StringUtils.isEmpty(skillDTO.getName())) {
+        if (skillDTO.getName() != null) {
             skill.setName(skillDTO.getName());
         }
 
-        if (!skillDTO.getApplicantSkills().isEmpty()) {
+        if (skillDTO.getApplicantSkills() != null) {
             skill.setApplicantSkills(skillDTO.getApplicantSkills());
         }
 
