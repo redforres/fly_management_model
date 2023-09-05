@@ -4,6 +4,8 @@ import ca.fly.mtm.admin.model.DocumentDTO;
 import ca.fly.mtm.admin.model.RequestResult;
 import ca.fly.mtm.admin.service.DocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,29 +16,34 @@ import java.util.List;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
-@RequestMapping(value = "/api/document", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/documents", produces = MediaType.APPLICATION_JSON_VALUE)
 public class DocumentController {
     @Autowired
     private DocumentService documentService;
 
-    @GetMapping("/all")
-    public ResponseEntity<List<DocumentDTO>> getAllDocuments() {
-        return ResponseEntity.ok(documentService.getAll());
+    @GetMapping
+    public ResponseEntity<List<DocumentDTO>>
+    getAllDocuments(@PageableDefault(sort = "id") Pageable pageable) {
+        return ResponseEntity.ok(documentService.getAll(pageable));
     }
 
     @GetMapping("/{documentId}")
-    public ResponseEntity<DocumentDTO> getDocumentById(@PathVariable Long documentId) {
+    public ResponseEntity<DocumentDTO>
+    getDocumentById(@PathVariable Long documentId) {
         return ResponseEntity.ok(documentService.getById(documentId));
     }
 
-    @PostMapping("/new")
-    public ResponseEntity<Long> createDocument(@RequestBody @Valid DocumentDTO documentDTO) {
+    @PostMapping
+    public ResponseEntity<Long>
+    createDocument(@RequestBody @Valid DocumentDTO documentDTO) {
         return new ResponseEntity<>(documentService.create(documentDTO), HttpStatus.CREATED);
     }
 
-    @PostMapping("/update/{documentId}")
-    public ResponseEntity<RequestResult> updateDocument(@PathVariable Long documentId,
-                                                        @RequestBody @Valid DocumentDTO documentDTO) {
+    @PutMapping("/{documentId}")
+    public ResponseEntity<RequestResult>
+    updateDocument(@PathVariable Long documentId,
+                   @RequestBody @Valid DocumentDTO documentDTO
+    ) {
         RequestResult result = new RequestResult();
 
         documentService.update(documentId, documentDTO);
@@ -47,8 +54,9 @@ public class DocumentController {
         return ResponseEntity.ok(result);
     }
 
-    @PostMapping("/delete/{documentId}")
-    public ResponseEntity<RequestResult> deleteDocument(@PathVariable Long documentId) {
+    @DeleteMapping("/{documentId}")
+    public ResponseEntity<RequestResult>
+    deleteDocument(@PathVariable Long documentId) {
         RequestResult result = new RequestResult();
 
         documentService.delete(documentId);

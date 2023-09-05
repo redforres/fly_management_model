@@ -4,6 +4,7 @@ import ca.fly.mtm.admin.entity.Document;
 import ca.fly.mtm.admin.model.DocumentDTO;
 import ca.fly.mtm.admin.repository.DocumentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -16,8 +17,8 @@ public class DocumentService {
     @Autowired
     private DocumentRepository documentRepository;
 
-    public List<DocumentDTO> getAll() {
-        return documentRepository.findAll()
+    public List<DocumentDTO> getAll(Pageable pageable) {
+        return documentRepository.findAll(pageable)
                 .stream()
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());

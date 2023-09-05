@@ -4,6 +4,7 @@ import ca.fly.mtm.admin.entity.Applicant;
 import ca.fly.mtm.admin.model.ApplicantDTO;
 import ca.fly.mtm.admin.repository.ApplicantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -17,14 +18,12 @@ public class ApplicantService {
     @Autowired
     private ApplicantRepository applicantRepository;
 
-    public List<ApplicantDTO> getAll() {
-        return applicantRepository.findAll()
+    public List<ApplicantDTO> getAll(Pageable pageable) {
+        return applicantRepository.findAll(pageable)
                 .stream()
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
-
-//    public List<> getApplicationsByApplicantId(final Long id) {}
 
     public ApplicantDTO getById(final Long id) {
         return applicantRepository.findById(id)

@@ -5,6 +5,7 @@ import ca.fly.mtm.admin.entity.Skill;
 import ca.fly.mtm.admin.model.SkillDTO;
 import ca.fly.mtm.admin.repository.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -19,8 +20,8 @@ public class SkillService {
     private SkillRepository skillRepository;
 
 
-    public List<SkillDTO> getAll() {
-        return skillRepository.findAll()
+    public List<SkillDTO> getAll(Pageable pageable) {
+        return skillRepository.findAll(pageable)
                 .stream()
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
