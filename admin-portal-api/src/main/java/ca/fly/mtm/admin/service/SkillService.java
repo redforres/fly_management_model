@@ -1,8 +1,10 @@
 package ca.fly.mtm.admin.service;
 
 
+import ca.fly.mtm.admin.entity.ApplicantSkill;
 import ca.fly.mtm.admin.entity.Skill;
 import ca.fly.mtm.admin.model.SkillDTO;
+import ca.fly.mtm.admin.repository.ApplicantSkillRepository;
 import ca.fly.mtm.admin.repository.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +20,8 @@ public class SkillService {
 
     @Autowired
     private SkillRepository skillRepository;
+    @Autowired
+    private ApplicantSkillRepository applicantSkillRepository;
 
 
     public List<SkillDTO> getAll(Pageable pageable) {
@@ -31,6 +35,14 @@ public class SkillService {
         return skillRepository.findById(id)
                 .map(this::mapToDTO)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    }
+
+    public List<SkillDTO> getByApplicantId(final Long applicantId) {
+        List<ApplicantSkill> applicantSkills = applicantSkillRepository.findByIdApplicantId(applicantId);
+        return applicantSkills.stream()
+                .map(ApplicantSkill::getSkill_AS)
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
     }
 
     public Long create(final SkillDTO skillDTO) {

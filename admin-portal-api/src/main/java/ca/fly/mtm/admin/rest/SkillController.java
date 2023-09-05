@@ -25,7 +25,13 @@ public class SkillController {
 
     @GetMapping
     public ResponseEntity<List<SkillDTO>>
-    getAllSkills(@PageableDefault(sort = "id") Pageable pageable) {
+    getAllSkills(
+            @PageableDefault(sort = "id") Pageable pageable,
+            @RequestParam(value = "applicant-id", required = false) Long applicantId
+    ) {
+        if (applicantId != null) {
+            return ResponseEntity.ok(skillService.getByApplicantId(applicantId));
+        }
         return ResponseEntity.ok(skillService.getAll(pageable));
     }
 
