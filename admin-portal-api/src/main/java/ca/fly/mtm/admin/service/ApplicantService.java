@@ -72,6 +72,7 @@ public class ApplicantService {
         return builder.build();
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     private Applicant mapToEntity(ApplicantDTO applicantDTO, Applicant applicant) {
         if (applicantDTO.getFirstName() != null) {
             applicant.setFirstName(applicantDTO.getFirstName());

@@ -60,6 +60,7 @@ public class SkillService {
         return builder.build();
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     private Skill mapToEntity(SkillDTO skillDTO, Skill skill) {
         if (skillDTO.getCategory() != null) {
             skill.setCategory(skillDTO.getCategory());

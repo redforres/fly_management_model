@@ -59,6 +59,7 @@ public class DocumentService {
         return builder.build();
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     private Document mapToEntity(DocumentDTO documentDTO, Document document) {
 
         if (documentDTO.getContent() != null) {

@@ -61,6 +61,7 @@ public class ApplicationService {
         return builder.build();
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     private Application mapToEntity(ApplicationDTO applicationDTO, Application application) {
         if (applicationDTO.getId() != null) {
             application.setId(application.getId());
