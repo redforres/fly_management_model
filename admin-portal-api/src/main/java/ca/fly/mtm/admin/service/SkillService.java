@@ -54,8 +54,7 @@ public class SkillService {
         SkillDTO.Builder builder = SkillDTO.builder()
                 .id(skill.getId())
                 .category(skill.getCategory())
-                .name(skill.getName())
-                .applicantSkills(skill.getApplicantSkills());
+                .name(skill.getName());
 
         return builder.build();
     }
@@ -67,10 +66,6 @@ public class SkillService {
 
         if (skillDTO.getName() != null) {
             skill.setName(skillDTO.getName());
-        }
-
-        if (skillDTO.getApplicantSkills() != null) {
-            skill.setApplicantSkills(skillDTO.getApplicantSkills());
         }
 
         return skill;

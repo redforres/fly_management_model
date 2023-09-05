@@ -2,10 +2,7 @@ package ca.fly.mtm.admin.model;
 
 import javax.validation.constraints.Size;
 
-import ca.fly.mtm.admin.entity.ApplicantSkill;
 import lombok.*;
-
-import java.util.List;
 
 @Builder(builderClassName = "Builder", toBuilder = true)
 @AllArgsConstructor
@@ -21,6 +18,4 @@ public class SkillDTO {
 
     @Size(max = 20)
     private String name;
-
-    private List<ApplicantSkill> applicantSkills;
 }

@@ -49,7 +49,6 @@ public class DocumentService {
     private DocumentDTO mapToDTO(Document document) {
         DocumentDTO.Builder builder = DocumentDTO.builder()
                 .id(document.getId())
-                .application(document.getApplication())
                 .content(document.getContent())
                 .createdBy(document.getCreatedBy())
                 .modifiedBy(document.getModifiedBy())
@@ -60,9 +59,6 @@ public class DocumentService {
     }
 
     private Document mapToEntity(DocumentDTO documentDTO, Document document) {
-        if (documentDTO.getApplication() != null) {
-            document.setApplication(documentDTO.getApplication());
-        }
 
         if (documentDTO.getContent() != null) {
             document.setContent(documentDTO.getContent());

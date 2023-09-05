@@ -55,8 +55,7 @@ public class ApplicationService {
                 .createdBy(application.getCreatedBy())
                 .modifiedBy(application.getModifiedBy())
                 .createdAt(application.getCreatedAt())
-                .modifiedAt(application.getModifiedAt())
-                .documents(application.getDocuments());
+                .modifiedAt(application.getModifiedAt());
 
         return builder.build();
     }

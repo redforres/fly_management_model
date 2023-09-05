@@ -1,6 +1,5 @@
 package ca.fly.mtm.admin.model;
 
-import ca.fly.mtm.admin.entity.Application;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
@@ -12,8 +11,6 @@ import java.time.LocalDate;
 @Getter @Setter
 public class DocumentDTO {
     private Long id;
-
-    private Application application;
 
     private byte[] content;
 
