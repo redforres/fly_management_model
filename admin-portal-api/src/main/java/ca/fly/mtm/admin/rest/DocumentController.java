@@ -23,7 +23,7 @@ public class DocumentController {
 
     @GetMapping
     public ResponseEntity<List<DocumentDTO>>
-    getAllDocuments(@PageableDefault(sort = "id") Pageable pageable) {
+    getDocuments(@PageableDefault(sort = "id") Pageable pageable) {
         return ResponseEntity.ok(documentService.getAll(pageable));
     }
 

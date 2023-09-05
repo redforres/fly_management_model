@@ -23,7 +23,7 @@ public class ApplicantController {
 
     @GetMapping
     public ResponseEntity<List<ApplicantDTO>>
-    getAllApplicants(@PageableDefault(sort = "id") Pageable pageable) {
+    getApplicants(@PageableDefault(sort = "id") Pageable pageable) {
         return ResponseEntity.ok(applicantService.getAll(pageable));
     }
 
