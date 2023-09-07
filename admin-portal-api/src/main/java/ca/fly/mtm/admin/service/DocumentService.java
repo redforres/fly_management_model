@@ -30,6 +30,13 @@ public class DocumentService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
+    public List<DocumentDTO> getByApplicationId(final Long applicationId) {
+        return documentRepository.findByApplication_Id(applicationId)
+                .stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
+    }
+
     public Long create(final DocumentDTO documentDTO) {
         Document document = new Document();
         mapToEntity(documentDTO, document);

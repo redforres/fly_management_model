@@ -23,7 +23,13 @@ public class ApplicationController {
 
     @GetMapping
     public ResponseEntity<List<ApplicationDTO>>
-    getApplications(@PageableDefault(sort = "id") Pageable pageable) {
+    getApplications(
+            @PageableDefault(sort = "id") Pageable pageable,
+            @RequestParam(value = "applicant-id", required = false) Long applicantId
+    ) {
+        if (applicantId != null) {
+            return ResponseEntity.ok(applicationService.getByApplicantId(applicantId));
+        }
         return ResponseEntity.ok(applicationService.getAll(pageable));
     }
 

@@ -30,6 +30,13 @@ public class ApplicationService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
+    public List<ApplicationDTO> getByApplicantId(final Long applicantId) {
+        return applicationRepository.findByApplicant_Id(applicantId)
+                .stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
+    }
+
     public Long create(final ApplicationDTO applicationDTO) {
         Application application = new Application();
         mapToEntity(applicationDTO, application);
