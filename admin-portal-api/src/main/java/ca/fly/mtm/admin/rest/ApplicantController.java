@@ -3,6 +3,7 @@ package ca.fly.mtm.admin.rest;
 import ca.fly.mtm.admin.model.ApplicantDTO;
 import ca.fly.mtm.admin.model.RequestResult;
 import ca.fly.mtm.admin.service.ApplicantService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+// add @Slf4j for controllers & services
+@Slf4j
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(value = "/api/applicants", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -21,6 +24,7 @@ public class ApplicantController {
     @Autowired
     private ApplicantService applicantService;
 
+    // add logs
     @GetMapping
     public ResponseEntity<List<ApplicantDTO>>
     getApplicants(@PageableDefault(sort = "id") Pageable pageable) {
@@ -40,16 +44,35 @@ public class ApplicantController {
     }
 
     @PutMapping(value = "/{applicantId}")
-    public ResponseEntity<RequestResult>
-    updateApplicant(@PathVariable Long applicantId,
-                    @RequestBody @Valid ApplicantDTO applicantDTO
-    ) {
-        RequestResult result = new RequestResult();
+    public ResponseEntity<RequestResult> updateApplicant(
+            @PathVariable Long applicantId,
+            @RequestBody @Valid ApplicantDTO applicantDTO) {
 
+        RequestResult result = new RequestResult();
+        if (applicantId == null) {
+            result.setStatus("error");
+            result.setMsg("ApplicantId is null");
+            return ResponseEntity.ok(result);
+        }
         applicantService.update(applicantId, applicantDTO);
 
         result.setStatus("ok");
         result.setMsg("Successfully updated an applicant");
+
+        return ResponseEntity.ok(result);
+    }
+
+    // format function signature
+    @PutMapping("/{applicantId}/skills")
+    public ResponseEntity<RequestResult>
+    updateApplicantSkills(@PathVariable Long applicantId, @RequestBody List<Long> skillIds) {
+        RequestResult result = new RequestResult();
+
+        // catch error
+        applicantService.updateSkills(applicantId, skillIds);
+
+        result.setStatus("ok");
+        result.setMsg("Successfully updated " + skillIds.size() + " skills for applicant id=" + applicantId);
 
         return ResponseEntity.ok(result);
     }

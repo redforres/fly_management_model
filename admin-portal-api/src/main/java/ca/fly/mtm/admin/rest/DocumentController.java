@@ -47,8 +47,9 @@ public class DocumentController {
 
     @PutMapping("/{documentId}")
     public ResponseEntity<RequestResult>
-    updateDocument(@PathVariable Long documentId,
-                   @RequestBody @Valid DocumentDTO documentDTO
+    updateDocument(
+            @PathVariable Long documentId,
+            @RequestBody @Valid DocumentDTO documentDTO
     ) {
         RequestResult result = new RequestResult();
 

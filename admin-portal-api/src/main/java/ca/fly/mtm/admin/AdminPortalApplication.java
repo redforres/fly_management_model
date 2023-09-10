@@ -28,6 +28,7 @@ public class AdminPortalApplication extends SpringBootServletInitializer {
         return application.sources(AdminPortalApplication.class);
     }
 
+    // call 3rd-party api from other endpoints
     @Bean
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
         return builder.build();

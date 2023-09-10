@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import ca.fly.mtm.admin.model.RequestResult;
 import ca.fly.mtm.admin.service.SkillService;
 import ca.fly.mtm.admin.model.SkillDTO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -49,11 +50,11 @@ public class SkillController {
 
     @PutMapping("/{skillId}")
     public ResponseEntity<RequestResult>
-    updateSkill(@PathVariable Long skillId,
-                @RequestBody @Valid SkillDTO skillDTO
+    updateSkill(
+            @PathVariable Long skillId,
+            @RequestBody @Valid SkillDTO skillDTO
     ) {
         RequestResult result = new RequestResult();
-
         skillService.update(skillId, skillDTO);
 
         result.setStatus("ok");

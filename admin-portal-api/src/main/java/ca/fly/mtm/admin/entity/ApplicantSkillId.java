@@ -13,6 +13,13 @@ public class ApplicantSkillId implements Serializable {
     private Long applicantId;
     private Long skillId;
 
+    public ApplicantSkillId(Long applicantId, Long skillId) {
+        this.applicantId = applicantId;
+        this.skillId = skillId;
+    }
+
+    public ApplicantSkillId() { }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

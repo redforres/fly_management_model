@@ -1,8 +1,13 @@
 package ca.fly.mtm.admin.service;
 
 import ca.fly.mtm.admin.entity.Applicant;
+import ca.fly.mtm.admin.entity.ApplicantSkill;
+import ca.fly.mtm.admin.entity.ApplicantSkillId;
+import ca.fly.mtm.admin.entity.Skill;
 import ca.fly.mtm.admin.model.ApplicantDTO;
 import ca.fly.mtm.admin.repository.ApplicantRepository;
+import ca.fly.mtm.admin.repository.ApplicantSkillRepository;
+import ca.fly.mtm.admin.repository.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -10,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -17,6 +23,10 @@ public class ApplicantService {
 
     @Autowired
     private ApplicantRepository applicantRepository;
+    @Autowired
+    private SkillRepository skillRepository;
+    @Autowired
+    private ApplicantSkillRepository applicantSkillRepository;
 
     public List<ApplicantDTO> getAll(Pageable pageable) {
         return applicantRepository.findAll(pageable)
@@ -42,6 +52,31 @@ public class ApplicantService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         mapToEntity(applicantDTO, applicant);
         applicantRepository.save(applicant);
+    }
+
+    public void updateSkills(final Long applicantId, final List<Long> skillIds) {
+        Applicant applicant = applicantRepository.findById(applicantId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        List<Skill> skills = skillRepository.findAllById(skillIds);
+
+        if (skills.size() != skillIds.size()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        applicantSkillRepository.deleteAllByIdApplicantId(applicantId);
+
+        Function<Skill, ApplicantSkill> skillToApplicantSkill = skill -> new ApplicantSkill(
+                new ApplicantSkillId(applicantId, skill.getId()),
+                applicant,
+                skill
+        );
+
+        List<ApplicantSkill> applicantSkills = skills.stream()
+                .map(skillToApplicantSkill)
+                .collect(Collectors.toList());
+
+        applicantSkillRepository.saveAll(applicantSkills);
     }
 
     public void delete(final Long applicantId) {
