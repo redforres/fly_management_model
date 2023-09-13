@@ -1,0 +1,1 @@
+pandoc pitfalls.md -o pitfalls.pdf -V geometry:margin=0.5in
