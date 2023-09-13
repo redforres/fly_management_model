@@ -8,79 +8,93 @@ import ca.fly.mtm.admin.model.ApplicantDTO;
 import ca.fly.mtm.admin.repository.ApplicantRepository;
 import ca.fly.mtm.admin.repository.ApplicantSkillRepository;
 import ca.fly.mtm.admin.repository.SkillRepository;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
+import javax.persistence.EntityNotFoundException;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+@Log4j2
 @Service
 public class ApplicantService {
 
-    @Autowired
-    private ApplicantRepository applicantRepository;
-    @Autowired
-    private SkillRepository skillRepository;
-    @Autowired
-    private ApplicantSkillRepository applicantSkillRepository;
+    private final ApplicantRepository applicantRepository;
+    private final SkillRepository skillRepository;
+    private final ApplicantSkillRepository applicantSkillRepository;
 
-    public List<ApplicantDTO> getAll(Pageable pageable) {
-        return applicantRepository.findAll(pageable)
+    @Autowired
+    public ApplicantService(
+            ApplicantRepository applicantRepository,
+            SkillRepository skillRepository,
+            ApplicantSkillRepository applicantSkillRepository) {
+
+        this.applicantRepository = applicantRepository;
+        this.skillRepository = skillRepository;
+        this.applicantSkillRepository = applicantSkillRepository;
+    }
+
+    public Boolean existsById(final Long id) {
+        return applicantRepository.existsById(id);
+    }
+
+    public List<ApplicantDTO> getAll() {
+        return applicantRepository.findAll()
                 .stream()
                 .map(this::mapToDTO)
+                .sorted(Comparator.comparing(ApplicantDTO::getId)) // sort by ID
                 .collect(Collectors.toList());
     }
 
     public ApplicantDTO getById(final Long id) {
         return applicantRepository.findById(id)
                 .map(this::mapToDTO)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new EntityNotFoundException("Cannot find applicant with id=" + id));
     }
 
-    public Long create(final ApplicantDTO applicantDTO) {
+    public ApplicantDTO create(final ApplicantDTO applicantDTO) {
         Applicant applicant = new Applicant();
         mapToEntity(applicantDTO, applicant);
-        return applicantRepository.save(applicant).getId();
+        return mapToDTO(applicantRepository.save(applicant));
     }
 
-    public void update(final Long id, final ApplicantDTO applicantDTO) {
-        final Applicant applicant = applicantRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    public void update(final ApplicantDTO applicantDTO) {
+        final Applicant applicant = new Applicant();
         mapToEntity(applicantDTO, applicant);
         applicantRepository.save(applicant);
     }
 
     public void updateSkills(final Long applicantId, final List<Long> skillIds) {
         Applicant applicant = applicantRepository.findById(applicantId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-
+                .orElseThrow(() -> new EntityNotFoundException("Cannot find applicant with id=" + applicantId));
         List<Skill> skills = skillRepository.findAllById(skillIds);
 
         if (skills.size() != skillIds.size()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            skillIds.removeAll(skills.stream().map(Skill::getId).collect(Collectors.toList()));
+            throw new EntityNotFoundException("Cannot find skill(s) with ids=" + skillIds);
         }
-
         applicantSkillRepository.deleteAllByIdApplicantId(applicantId);
-
         Function<Skill, ApplicantSkill> skillToApplicantSkill = skill -> new ApplicantSkill(
                 new ApplicantSkillId(applicantId, skill.getId()),
                 applicant,
                 skill
         );
-
         List<ApplicantSkill> applicantSkills = skills.stream()
                 .map(skillToApplicantSkill)
                 .collect(Collectors.toList());
-
         applicantSkillRepository.saveAll(applicantSkills);
     }
 
     public void delete(final Long applicantId) {
-        applicantRepository.deleteById(applicantId);
+        try {
+            applicantRepository.deleteById(applicantId);
+        } catch (EmptyResultDataAccessException ex) {
+            throw new EntityNotFoundException("Cannot find applicant with id=" + applicantId);
+        }
     }
 
     private ApplicantDTO mapToDTO(Applicant applicant) {

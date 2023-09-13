@@ -16,7 +16,8 @@ import java.util.List;
 @Setter
 public class Applicant {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "F_Applicant_id_seq_generator")
+    @SequenceGenerator(name = "F_Applicant_id_seq_generator", sequenceName = "\"F_Applicant_id_seq\"", allocationSize = 1)
     @Column(name = "id")
     private Long id;
 

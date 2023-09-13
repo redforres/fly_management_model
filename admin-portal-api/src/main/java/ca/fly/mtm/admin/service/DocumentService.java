@@ -4,30 +4,40 @@ import ca.fly.mtm.admin.entity.Document;
 import ca.fly.mtm.admin.model.DocumentDTO;
 import ca.fly.mtm.admin.repository.DocumentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
+import javax.persistence.EntityNotFoundException;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class DocumentService {
-    @Autowired
-    private DocumentRepository documentRepository;
 
-    public List<DocumentDTO> getAll(Pageable pageable) {
-        return documentRepository.findAll(pageable)
+    private final DocumentRepository documentRepository;
+
+    @Autowired
+    DocumentService(DocumentRepository documentRepository) {
+        this.documentRepository = documentRepository;
+    }
+
+    public Boolean existsById(final Long id) {
+        return documentRepository.existsById(id);
+    }
+
+    public List<DocumentDTO> getAll() {
+        return documentRepository.findAll()
                 .stream()
                 .map(this::mapToDTO)
+                .sorted(Comparator.comparing(DocumentDTO::getId)) // sort by ID
                 .collect(Collectors.toList());
     }
 
     public DocumentDTO getById(final Long id) {
         return documentRepository.findById(id)
                 .map(this::mapToDTO)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new EntityNotFoundException("Cannot find document with id=" + id));
     }
 
     public List<DocumentDTO> getByApplicationId(final Long applicationId) {
@@ -37,21 +47,24 @@ public class DocumentService {
                 .collect(Collectors.toList());
     }
 
-    public Long create(final DocumentDTO documentDTO) {
+    public DocumentDTO create(final DocumentDTO documentDTO) {
         Document document = new Document();
         mapToEntity(documentDTO, document);
-        return documentRepository.save(document).getId();
+        return mapToDTO(documentRepository.save(document));
     }
 
-    public void update(final Long id, DocumentDTO documentDTO) {
-        final Document document = documentRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    public void update(DocumentDTO documentDTO) {
+        final Document document = new Document();
         mapToEntity(documentDTO, document);
         documentRepository.save(document);
     }
 
     public void delete(final Long id) {
-        documentRepository.deleteById(id);
+        try {
+            documentRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException ex) {
+            throw new EntityNotFoundException("Cannot find document with id=" + id);
+        }
     }
 
     private DocumentDTO mapToDTO(Document document) {
