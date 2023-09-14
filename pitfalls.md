@@ -4,6 +4,16 @@ Pitfalls encountered during developing Fly Management System recorded in reverse
 
 ## Backend
 
+- To handle a request of fetching a representation of a resource with some identifiers for the desired resource, we prefer to use GET with query parameters (in the URL). However, the identifiers may get too long and make the URL very long. To solve this, a GET with body could come to your mind but this is not a good idea:
+  
+    > A payload within a GET request message has no defined semantics; sending a payload body on a GET request might cause some existing implementations to reject the request.[1]
+
+    Using PUT with request body is a widely accepted way of achieving this, although PUT requests are not defined as idempotent, leading to request retry hesitancy.[2][3]
+    
+    [1]:[RFC 7231](https://www.rfc-editor.org/rfc/rfc7231#section-4.3.1)\
+    [2]:https://stackoverflow.com/a/70157919
+    [3]:https://stackoverflow.com/a/63190922
+
 - For a general exception handler for some exception thrown at some controller class, a `@ControllerAdvice` annotated interface/class could be useful:
 
     ```java
@@ -36,7 +46,6 @@ Pitfalls encountered during developing Fly Management System recorded in reverse
     ```
 
 - Services should throw exceptions about the data items (e.g.,  `EntityNotFoundException`) instead of other types of exception (e.g., `ResponseStatusException`) in place. Controllers are those who should catch these exceptions and then rethrow or do something else with these exceptions.
-
 - Conform to REST API is good.
 - (Almost) always write Javadoc for interfaces, especially for the complicated ones.
 - To ensure the `@PathVariable` parameters to be not null, `@NotNull` annotation can be used. It will cause a `400 Bad Request` response to be returned if in very rare cases, the annotated parameter is null.
