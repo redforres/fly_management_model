@@ -1,8 +1,10 @@
 package ca.fly.mtm.admin.rest;
 
+import ca.fly.mtm.admin.entity.Applicant;
 import ca.fly.mtm.admin.model.ApplicantDTO;
 import ca.fly.mtm.admin.model.RequestResult;
 import ca.fly.mtm.admin.service.ApplicantService;
+import ca.fly.mtm.admin.service.ApplicationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -10,10 +12,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.persistence.EntityNotFoundException;
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -22,16 +27,19 @@ import java.util.List;
 public class ApplicantController implements ServiceExceptionHandler {
 
     private final ApplicantService applicantService;
+    private final ApplicationService applicationService;
 
     @Autowired
-    ApplicantController(ApplicantService applicantService) {
+    ApplicantController(ApplicantService applicantService,
+                        ApplicationService applicationService) {
         this.applicantService = applicantService;
+        this.applicationService = applicationService;
     }
 
     @GetMapping
     public ResponseEntity<List<ApplicantDTO>> getApplicants() {
         List<ApplicantDTO> applicants = applicantService.getAll();
-        log.debug("Got {} applicants", applicants.size());
+        log.debug("Got {} applicant(s)", applicants.size());
         return ResponseEntity.ok(applicants);
     }
 
@@ -41,6 +49,38 @@ public class ApplicantController implements ServiceExceptionHandler {
         log.debug("Got applicant with id={}", applicantId);
         return ResponseEntity.ok(applicant);
     }
+
+    /**
+     * Fetches a list of applicant names identified by a list of application IDs.
+     *
+     * @param applicationIds a list of application IDs to fetch the corresponding applicant names.
+     *                       Each entry in the list should be a valid application ID of type {@code Long}.
+     *                       The list should not be null and should contain at least one valid ID.
+     * @return a {@code ResponseEntity} object containing a list of {@code ApplicantDTO} objects.
+     *         Each {@code ApplicantDTO} object contains the first name, middle name, and last name
+     *         of an applicant. The response status is 200 OK if the request is successful.
+     * @throws ConstraintViolationException if the list of application IDs is null or empty.
+     * @throws EntityNotFoundException if an application ID in the list does not correspond to an existing applicant.
+     * @see ApplicantDTO
+     */
+    @PostMapping("by-application-ids")
+    public ResponseEntity<List<ApplicantDTO>> getApplicantsNamesByApplicationIds(
+            @RequestBody @Valid List<Long> applicationIds) {
+        List<ApplicantDTO> applicants = applicationIds.stream()
+                .map(applicationService::getById)
+                .map(applicationDTO -> {
+                    Applicant applicant = applicationDTO.getApplicant();
+                    ApplicantDTO.Builder builder = ApplicantDTO.builder()
+                            .firstName(applicant.getFirstName())
+                            .middleName(applicant.getMiddleName())
+                            .lastName(applicant.getLastName());
+                    return builder.build();
+                }).collect(Collectors.toList());
+        log.debug("Got {} applicant(s)", applicants.size());
+        return ResponseEntity.ok(applicants);
+    }
+
+
 
     @PostMapping
     public ResponseEntity<Void> createApplicant(@RequestBody @Valid ApplicantDTO applicantDTO) {

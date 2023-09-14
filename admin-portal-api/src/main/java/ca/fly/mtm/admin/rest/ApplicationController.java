@@ -45,10 +45,10 @@ public class ApplicationController implements ServiceExceptionHandler {
 
         if (filteredByApplicantId) {
             applications = applicationService.getByApplicantId(applicantId);
-            log.debug("Got {} applications for applicant id={}", applications.size(), applicantId);
+            log.debug("Got {} application(s) for applicant id={}", applications.size(), applicantId);
         } else {
             applications = applicationService.getAll();
-            log.debug("Got {} applications", applications.size());
+            log.debug("Got {} application(s)", applications.size());
         }
         return ResponseEntity.ok(applications);
     }
