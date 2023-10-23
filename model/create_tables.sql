@@ -51,6 +51,19 @@ CREATE TABLE "F_Document" (
   "modified_at" date
 );
 
+CREATE TABLE "F_Role" (
+  "id" SERIAL UNIQUE PRIMARY KEY,
+  "name" varchar(255) UNIQUE NOT NULL
+);
+
+CREATE TABLE "F_User" (
+  "id" SERIAL UNIQUE PRIMARY KEY,
+  "username" varchar(255) UNIQUE NOT NULL,
+  "password" varchar(255) NOT NULL,
+  "role_id" serial NOT NULL,
+  "active" boolean DEFAULT true
+);
+
 ALTER TABLE "F_Applicant_Skill" ADD FOREIGN KEY ("applicant_id") REFERENCES "F_Applicant" ("id");
 
 ALTER TABLE "F_Applicant_Skill" ADD FOREIGN KEY ("skill_id") REFERENCES "F_Skill" ("id");
@@ -58,3 +71,5 @@ ALTER TABLE "F_Applicant_Skill" ADD FOREIGN KEY ("skill_id") REFERENCES "F_Skill
 ALTER TABLE "F_Application" ADD FOREIGN KEY ("applicant_id") REFERENCES "F_Applicant" ("id");
 
 ALTER TABLE "F_Document" ADD FOREIGN KEY ("application_id") REFERENCES "F_Application" ("id");
+
+ALTER TABLE "F_User" ADD FOREIGN KEY ("role_id") REFERENCES "F_Role" ("id");

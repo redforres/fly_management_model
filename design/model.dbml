@@ -54,5 +54,18 @@ Table F_Document {
   modified_at date
 }
 
+Table F_Role {
+  id serial [pk, unique, increment]
+  name varchar(255) [unique, not null]
+}
+
+Table F_User {
+  id serial [pk, unique, increment]
+  username varchar(255) [unique, not null]
+  password varchar(255) [not null]
+  role_id serial [not null, ref: > F_Role.id]
+  active boolean [default: true]
+}
+
 // Ref: F_Applicant.id <> F_Skill.id // many-to-many
 

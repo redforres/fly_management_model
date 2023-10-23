@@ -124,3 +124,9 @@ VALUES
 (8, E'\\000'::bytea, 'Flora Gavrilova', 'Admin', '2023-02-25', '2023-02-26'),
 (8, E'\\000'::bytea, 'Flora Gavrilova', 'Admin', '2023-02-27', '2023-02-28');
 
+INSERT INTO "F_Role" (name) VALUES ('ADMIN'), ('USER');
+
+INSERT INTO "F_User" (username, password, role_id) 
+VALUES 
+('Admin', 'admin', 1),
+('User', 'user', 2);
